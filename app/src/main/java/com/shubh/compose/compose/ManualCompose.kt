@@ -36,6 +36,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -48,8 +49,10 @@ import com.shubh.compose.R
 /**
  * this is the recyclerview compose
  */
+
+@Preview
 @Composable
-fun previewList(context: Context) {
+fun previewList() {
     LazyColumn(content = {
         items(getRandomItems()) { data ->
             cardContactPersonForList(
@@ -57,7 +60,7 @@ fun previewList(context: Context) {
                     imageId = data.imageId,
                     title = data.title,
                     content = data.content
-                ), context = context
+                )
             )
         }
     })
@@ -68,7 +71,11 @@ fun previewList(context: Context) {
  * this is the recyclerview-item compose
  */
 @Composable
-fun cardContactPersonForList(randomItem: RandomItem,context: Context) {
+fun cardContactPersonForList(randomItem: RandomItem) {
+
+    //todo it will provide us the context in the compose
+    var context= LocalContext.current
+
     Card(modifier = Modifier
         .padding(4.dp)
         .clickable {
