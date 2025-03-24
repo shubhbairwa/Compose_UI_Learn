@@ -43,6 +43,7 @@ import com.shubh.compose.model.data.DataManager.loadJSONFromAsset
 import com.shubh.compose.model.data.Quote
 import com.shubh.compose.quotes.screens.QuoteDetail
 import com.shubh.compose.quotes.screens.QuoteListScreen
+import com.shubh.compose.ui.theme.ComposeTheme
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -62,8 +63,11 @@ class MainActivity : ComponentActivity() {
         val json = loadJSONFromAsset(this, "quotes.json")
 
         setContent {
+            ComposeTheme { //by using this we can customize for our app theme
+                App()
 
-            App()
+            }
+
             //  showPreviewButtons()
             //  previewList()
 //            Column(verticalArrangement = Arrangement.SpaceBetween) {
@@ -93,7 +97,7 @@ class MainActivity : ComponentActivity() {
         if (DataManager.currentPages.value == DataManager.Pages.LISTING) {
             QuoteListScreen(data = giveQuoteList()) { quote ->
 
-               // Toast.makeText(this, "clicked on ${quote.text}", Toast.LENGTH_SHORT).show()
+                // Toast.makeText(this, "clicked on ${quote.text}", Toast.LENGTH_SHORT).show()
                 currentQuote = quote
                 DataManager.switchPages()
             }

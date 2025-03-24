@@ -51,16 +51,17 @@ fun QuoteItem(quote: Quote, onclick: (quote: Quote) -> Unit) {
             .clickable { onclick(quote) }
 
             .padding(8.dp)
-            .border(
-                1.dp,
-                colorResource(id = R.color.black),// it will add color from color.xml file
-                RoundedCornerShape(8.dp)
-            ) //for stroke in card
+//            .border(
+//                1.dp,
+//                colorResource(id = R.color.black),// it will add color from color.xml file
+//                RoundedCornerShape(8.dp)
+//            ) //for stroke in card
+            .border(1.dp, color = MaterialTheme.colorScheme.primary, RoundedCornerShape(8.dp))
 
     ) {
         Row(
             modifier = Modifier
-                .background(Color.White)
+                .background(MaterialTheme.colorScheme.onSecondary)
                 .padding(16.dp)
         ) {
             Image(
