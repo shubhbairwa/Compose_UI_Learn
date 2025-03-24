@@ -13,7 +13,7 @@ import com.shubh.compose.model.data.Quote
 
 
 @Composable
-fun QuoteListScreen(data: Array<Quote>, onClick: () -> Unit) {
+fun QuoteListScreen(data: Array<Quote>, onClick: (quote: Quote) -> Unit) {
 
     Column {
         Text(
@@ -25,10 +25,7 @@ fun QuoteListScreen(data: Array<Quote>, onClick: () -> Unit) {
             textAlign = TextAlign.Center
 
         )
-        QuoteList(data=data) {
-
-            onClick()
-        }
+        QuoteList(data = data, onClick)
 
 
     }

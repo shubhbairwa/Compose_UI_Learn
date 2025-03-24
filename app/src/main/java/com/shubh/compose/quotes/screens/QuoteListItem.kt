@@ -43,12 +43,12 @@ import com.shubh.compose.model.data.Quote
 
 
 @Composable
-fun QuoteItem(quote: Quote, onclick: () -> Unit) {
+fun QuoteItem(quote: Quote, onclick: (quote: Quote) -> Unit) {
     Card(
         elevation = CardDefaults.cardElevation(4.dp), //adding elevation in card
         modifier = Modifier
 
-            .clickable { onclick() }
+            .clickable { onclick(quote) }
 
             .padding(8.dp)
             .border(
