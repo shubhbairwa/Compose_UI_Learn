@@ -3,6 +3,7 @@ package com.shubh.compose
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -20,6 +21,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -54,7 +56,7 @@ import java.io.InputStream
 class MainActivity : ComponentActivity() {
 
     companion object {
-
+        private const val TAG = "MainActivity"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -137,6 +139,24 @@ class MainActivity : ComponentActivity() {
         var categoryList = remember { mutableStateOf(emptyList<String>()) }
         categoryList.value =
             getCtaegoryFromApi()//it will make side effect because of recomposition it will n number of request
+
+        LaunchedEffect(key1 = Unit) {
+            categoryList.value =
+                getCtaegoryFromApi()  // it will make sure this coode will execute once regardless how much time the whole function call
+        }
+    }
+
+    @Composable
+    fun CounterforLaunchEffectExample() {
+        var count = remember { mutableStateOf(0) }
+        var key = count.value % 3 == 0
+
+        LaunchedEffect(key1 = key) {  //key1 is used to set the condition when we want the code to reexecute
+            Log.d(
+                TAG,
+                "CounterforLaunchEffectExample: ${count.value}"
+            )  // it will make sure this coode will execute once regardless how much time the whole function call
+        }
     }
 
     fun getCtaegoryFromApi(): List<String> {
