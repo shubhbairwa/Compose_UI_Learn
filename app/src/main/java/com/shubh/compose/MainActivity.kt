@@ -132,6 +132,18 @@ class MainActivity : ComponentActivity() {
     }
 
 
+    @Composable
+    fun hasSideEffect() {
+        var categoryList = remember { mutableStateOf(emptyList<String>()) }
+        categoryList.value =
+            getCtaegoryFromApi()//it will make side effect because of recomposition it will n number of request
+    }
+
+    fun getCtaegoryFromApi(): List<String> {
+        return emptyList()
+    }
+
+
 }
 
 
