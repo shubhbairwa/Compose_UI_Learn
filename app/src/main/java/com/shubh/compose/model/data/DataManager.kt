@@ -41,6 +41,8 @@ object DataManager {
     }
 
 
+
+    //switch between screens
     enum class Pages {
         LISTING, DETAIL
     }

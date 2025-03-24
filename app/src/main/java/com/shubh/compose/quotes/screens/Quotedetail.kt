@@ -30,11 +30,13 @@ import com.shubh.compose.model.data.Quote
 
 
 @Composable
- fun QuoteDetail(quote: Quote) {
-     BackHandler {
-DataManager.switchPages()
+fun QuoteDetail(quote: Quote) {
 
-     }
+    //handle back press
+    BackHandler {
+        DataManager.switchPages()
+
+    }
 
 
     Box(
