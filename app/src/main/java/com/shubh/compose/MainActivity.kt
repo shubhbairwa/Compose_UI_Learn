@@ -18,10 +18,16 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Button
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarColors
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -40,6 +46,8 @@ import com.shubh.compose.compose.getRandomItems
 import com.shubh.compose.compose.notificationUi
 import com.shubh.compose.compose.previewList
 import com.shubh.compose.compose.showPreviewButtons
+import com.shubh.compose.forms.screens.FormOne
+import com.shubh.compose.forms.screens.RadioButtonSingleSelection
 import com.shubh.compose.model.data.DataManager
 import com.shubh.compose.model.data.DataManager.loadJSONFromAsset
 import com.shubh.compose.model.data.Quote
@@ -59,16 +67,32 @@ class MainActivity : ComponentActivity() {
         private const val TAG = "MainActivity"
     }
 
+    @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //enableEdgeToEdge()
         val json = loadJSONFromAsset(this, "quotes.json")
 
         setContent {
-            ComposeTheme { //by using this we can customize for our app theme
-                App()
+            ComposeTheme {
+                Scaffold(topBar = {
+                    TopAppBar(
+                        title = {
+                            Text(text = "Application")
+                        },
+                        colors = TopAppBarDefaults.topAppBarColors(
+                            containerColor = Color.Black,
+                            titleContentColor = Color.White
+                        )
+                    )
+                }) {
+                    Box(modifier = Modifier.padding(it)) {
+                        NewApp()
 
+                    }
+                }
             }
+
 
             //  showPreviewButtons()
             //  previewList()
@@ -135,6 +159,12 @@ class MainActivity : ComponentActivity() {
 
 
     @Composable
+    fun NewApp() {
+        FormOne(this)
+    }
+
+
+    @Composable
     fun hasSideEffect() {
         var categoryList = remember { mutableStateOf(emptyList<String>()) }
         categoryList.value =
@@ -148,18 +178,18 @@ class MainActivity : ComponentActivity() {
 
     @Composable
     fun CounterforLaunchEffectExample() {
-        var count = remember { mutableStateOf(0) }
-        var key = count.value % 3 == 0
+        var count = remember { mutableIntStateOf(0) }
+        var key = count.intValue % 3 == 0
 
         LaunchedEffect(key1 = key) {  //key1 is used to set the condition when we want the code to reexecute
             Log.d(
                 TAG,
-                "CounterforLaunchEffectExample: ${count.value}"
+                "CounterforLaunchEffectExample: ${count.intValue}"
             )  // it will make sure this coode will execute once regardless how much time the whole function call
         }
     }
 
-    fun getCtaegoryFromApi(): List<String> {
+    private fun getCtaegoryFromApi(): List<String> {
         return emptyList()
     }
 
